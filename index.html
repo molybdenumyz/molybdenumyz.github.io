@@ -278,24 +278,49 @@
 <p>有意思的是java的类加载器也有些门道。它分为BootStrap Class Loader(引导类加载器)，Extensions Class Loader (扩展类加载器),App ClassLoader(或System Class Loader)，当然少不了Custom ClassLoader(用户自定义类加载器)。其加载过程中会先检查类是否被已加载，检查顺序是自底向上，从Custom ClassLoader到BootStrap ClassLoader逐层检查，只要某个classloader已加载就视为已加载此类，保证此类只所有ClassLoader加载一次。而加载的顺序是自顶向下，也就是由上层来逐层尝试加载此类。类</p>
 <p>  在forName方法中，调用了ClassLoader.loadClass方法来完成类的反射。根据类加载器的特殊性，结合我的调试过程，画了一个简单的流程图，<br><img src="http://img.blog.csdn.net/20130625103818562?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveGlhb3hpYW44MDIz/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""><br>       这幅图简单的说明了类加载器的类加载过程。先检查自己是否已经加载过该类，如果加载过，则直接返回该类，若没有则调用父类的loadClass方法，如果父类中没有，则执行findClass方法去尝试加载此类，也就是我们通常所理解的片面的”反射”了。这个过程主要通过ClassLoader.defineClass方法来完成。defineClass 方法将一个字节数组转换为 Class 类的实例（任何类的对象都是Class类的对象）。这种新定义的类的实例需要使用 Class.newInstance 来创建，而不能使用new来实例化。<br>    为什么说“任何类的对象都是Class类的对象”呢？在Java中，每个class都有一个相应的Class对象。也就是说，当我们编写一个类（.java文件），编译完成后，在生成的.class文件中，就会产生一个Class对象，用于表示这个类的类型信息。<br>     其实说的简单通俗一点，就是在运行期间，如果我们要产生某个类的对象，Java虚拟机（JVM）会检查该类型的Class对象是否已被加载。如果没有被加载，JVM会根据类的名称找到.class文件并加载它。一旦某个类型的Class对象已被加载到内存，就可以用它来产生该类型的所有对象。</p>
 <p>###反射机制的常用方法<br>利用反射机制能获得什么信息<br>         一句话，类中有什么信息，它就可以获得什么信息，不过前提是得知道类的名字，要不就没有后文了<br>    首先得根据传入的类的全名来创建Class对象。</p>
-  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Class c=Class.forName(&quot;className&quot;);注明：className必须为全名，也就是得包含包名，比如，cn.netjava.pojo.UserInfo;</div></pre></td></tr></table></figure>
-   <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Object obj=c.newInstance();//创建对象的实例 OK，有了对象就什么都好办了，想要什么信息就有什么信息了。</div><div class="line">```</div></pre></td></tr></table></figure>
-<p>   Constructor getConstructor(Class[] params)//根据指定参数获得public构造器</p>
-<p>   Constructor[] getConstructors()//获得public的所有构造器</p>
-<p>   Constructor getDeclaredConstructor(Class[] params)//根据指定参数获得public和非public的构造器</p>
-<p>   Constructor[] getDeclaredConstructors()//获得public的所有构造器<br>    获得类方法的方法<br>   Method getMethod(String name, Class[] params),根据方法名，参数类型获得方法</p>
-<p>   Method[] getMethods()//获得所有的public方法</p>
-<p>   Method getDeclaredMethod(String name, Class[] params)//根据方法名和参数类型，获得public和非public的方法</p>
-<p>   Method[] getDeclaredMethods()//获得所以的public和非public方法<br>    获得类中属性的方法<br>   Field getField(String name)//根据变量名得到相应的public变量</p>
-<p>   Field[] getFields()//获得类中所以public的方法</p>
-<p>   Field getDeclaredField(String name)//根据方法名获得public和非public变量</p>
-<p>   Field[] getDeclaredFields()//获得类中所有的public和非public方法<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line">下面看看对应的例子</div><div class="line"></div><div class="line">### 举例</div><div class="line"></div><div class="line">先建立一个类</div><div class="line"></div><div class="line">![](http://i2.muimg.com/567571/90a7446844df515c.png)</div></pre></td></tr></table></figure></p>
-<p>static Class&lt;?&gt; forName(String className)<br>// 返回的是与带有给定字符串名的类或接口关联的class<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">即传入一个类的全称 （包+类名）</div></pre></td></tr></table></figure></p>
-<p>//caass 代表类的对象<br>Class clazz = Class.forName(“com.test.MyTest”);<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">隔壁老王模式开启，抓到这个类的对象了，就要干坏事了</div><div class="line">首先魔抓伸向构造器</div></pre></td></tr></table></figure></p>
-<p>//Constructor 代表类的构造器对象<br>Constructor constructor = clazz.getConstructor(String.class,int.class);<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">你不但拿到了构造器, 而且你关联了你上面拿到的类(clazz), 而且你也确定了参数的类型. 是不是?</div><div class="line"></div><div class="line">接下来获取这个类的方法</div></pre></td></tr></table></figure></p>
-<p>//Method 代表了这个类的方法对象<br>Method replyMethod = clazz.getMethod(“reply”,String.class);<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">方法调用</div></pre></td></tr></table></figure></p>
-<p>replyMethod.invoke(object,”hello”);<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">通过拿到的类(clazz)关联到了属于他的reply方法, 并且确定了参数的类型, 付给了方法对象replyMethod. 调用时, 通过方法对象replyMethod, 就能去&quot;激活&quot;属于object对象的reply方法, 而且你付给了他参数, 达到了&quot;激活&quot;的条件.</div><div class="line"></div><div class="line">无参数时这样调用</div></pre></td></tr></table></figure></p>
-<p>Method sayMethod = clazz.getMethod(“say”)；<br>sayMethod.invoke(null);<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">而且他还可以拿到成员变量</div></pre></td></tr></table></figure></p>
+<pre><code> Class c=Class.forName(&quot;className&quot;);注明：className必须为全名，也就是得包含包名，比如，com.neuqer.vote.User
+
+
+Object obj=c.newInstance();//创建对象的实例 OK，有了对象就什么都好办了，想要什么信息就有什么信息了。
+Constructor getConstructor(Class[] params)//根据指定参数获得public构造器
+
+Constructor[] getConstructors()//获得public的所有构造器
+
+Constructor getDeclaredConstructor(Class[] params)//根据指定参数获得public和非public的构造器
+
+Constructor[] getDeclaredConstructors()//获得public的所有构造器
+ 获得类方法的方法
+Method getMethod(String name, Class[] params),根据方法名，参数类型获得方法
+
+Method[] getMethods()//获得所有的public方法
+
+Method getDeclaredMethod(String name, Class[] params)//根据方法名和参数类型，获得public和非public的方法
+
+Method[] getDeclaredMethods()//获得所以的public和非public方法
+ 获得类中属性的方法
+Field getField(String name)//根据变量名得到相应的public变量
+
+Field[] getFields()//获得类中所以public的方法
+
+Field getDeclaredField(String name)//根据方法名获得public和非public变量
+
+Field[] getDeclaredFields()//获得类中所有的public和非public方法
+</code></pre><p>下面看看对应的例子</p>
+<h3 id="举例"><a href="#举例" class="headerlink" title="举例"></a>举例</h3><p>先建立一个类</p>
+<p><img src="http://i2.muimg.com/567571/90a7446844df515c.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">static Class&lt;?&gt; forName(String className)</div><div class="line">// 返回的是与带有给定字符串名的类或接口关联的class</div></pre></td></tr></table></figure>
+<p>即传入一个类的全称 （包+类名）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//caass 代表类的对象</div><div class="line">Class clazz = Class.forName(&quot;com.test.MyTest&quot;);</div></pre></td></tr></table></figure>
+<p>隔壁老王模式开启，抓到这个类的对象了，就要干坏事了<br>首先魔抓伸向构造器</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//Constructor 代表类的构造器对象</div><div class="line">Constructor constructor = clazz.getConstructor(String.class,int.class);</div></pre></td></tr></table></figure>
+<p>你不但拿到了构造器, 而且你关联了你上面拿到的类(clazz), 而且你也确定了参数的类型. 是不是?</p>
+<p>接下来获取这个类的方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">//Method 代表了这个类的方法对象</div><div class="line">Method replyMethod = clazz.getMethod(&quot;reply&quot;,String.class);</div></pre></td></tr></table></figure>
+<p>方法调用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">replyMethod.invoke(object,&quot;hello&quot;);</div></pre></td></tr></table></figure>
+<p>通过拿到的类(clazz)关联到了属于他的reply方法, 并且确定了参数的类型, 付给了方法对象replyMethod. 调用时, 通过方法对象replyMethod, 就能去”激活”属于object对象的reply方法, 而且你付给了他参数, 达到了”激活”的条件.</p>
+<p>无参数时这样调用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Method sayMethod = clazz.getMethod(&quot;say&quot;)；</div><div class="line">sayMethod.invoke(null);</div><div class="line">```     </div><div class="line">而且他还可以拿到成员变量</div></pre></td></tr></table></figure>
 <p>Field field = clazz.getDeclaredField(“name”);<br>field.setAccessible(true);<br>field.set(object, “LJT”);<br>System.out.println(field.get(object));<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">看一眼运行结果</div><div class="line">![](http://i4.buimg.com/567571/f79dd004f0c07c26.png)</div><div class="line"> 简直震惊了我，成员变量我定义的都是private啊</div><div class="line"></div><div class="line"> 所有说</div><div class="line">**在编程里说好的私有都是骗人的(XDXD)**, 而这就是反射里一个非常重要的机制, 他可以强行获取私有成员变量, 忽略字段的访问权限检查, 这里面能做的文章可就多了.</div><div class="line">而这就归功于这个方法.</div></pre></td></tr></table></figure></p>
 <p>field.setAccessible(true);<br>``</p>
 <p>展示一下spring中反射机制结合属性文件的工厂模式（IOC）</p>
