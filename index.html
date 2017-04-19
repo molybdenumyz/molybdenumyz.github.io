@@ -245,26 +245,39 @@
       <input type="hidden" class="isFancy" />
     
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/09/反射机制/">
+        JAVA反射机制
+        
+      </a>
+    </h1>
+  
+
+      </header>
+      
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <p>#JAVA反射机制    </p>
-<p>###什么是反射机制<br>反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取的信息以及动态调用对象的方法的功能称为java语言的反射机制。<br>反正对我这种萌新是很难理解………</p>
+        <h3 id="什么是反射机制"><a href="#什么是反射机制" class="headerlink" title="什么是反射机制"></a>什么是反射机制</h3><p>反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取的信息以及动态调用对象的方法的功能称为java语言的反射机制。<br>反正对我这种萌新是很难理解………</p>
 <p>在很多大型项目比如Spring, Mybatis都可以看见反射的身影。通过反射机制我们可以在<strong>运行期间</strong>获取对象的类型信息，利用这一特性我们可以实现工厂模式和代理模式等设计模式</p>
-<p>###反射机制的优缺点<br>在jdbc学习的时候，我们用过这样一行代码</p>
+<h3 id="反射机制的优缺点"><a href="#反射机制的优缺点" class="headerlink" title="反射机制的优缺点"></a>反射机制的优缺点</h3><p>在jdbc学习的时候，我们用过这样一行代码</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Class.forName(&quot;com.mysql.jdbc.Driver.class&quot;).newInstance();</div></pre></td></tr></table></figure>
 <p>在这里生成了驱动对象的实例，在这里便运用了java的反射机制</p>
-<p>为什么要用反射机制？直接创建对象不就可以了吗，这就涉及到了动态与静态的概念， </p>
-<p>静态编译：在编译时确定类型，绑定对象,即通过。<br>动态编译：运行时确定类型，绑定对象。动态编译最大限度发挥了java的灵活性，体现了多<br>态的应用，有以降低类之间的藕合性。 </p>
+<p>为什么要用反射机制？直接创建对象不就可以了吗，这就涉及到了动态与静态的概念，</p>
+<p>静态编译：在编译时确定类型，绑定对象,即通过。<br>动态编译：运行时确定类型，绑定对象。动态编译最大限度发挥了java的灵活性，体现了多<br>态的应用，有以降低类之间的藕合性。</p>
 <p>一句话，反射机制的优点就是可以实现动态创建对象和编译，体现出很大的灵活性，特别是在开发中<br>它的灵活性就表现的十分明显。</p>
-<p>比如，一个大型的软件，不可能一次就把把它设计的很完美，当这个程序编<br>译后，发布了，当发现需要更新某些功能时，我们不可能要用户把以前的卸载，再重新安装新的版本，假如<br>这样的话，这个软件肯定是没有多少人用的。采用静态的话，需要把整个程序重新编译一次才可以实现功能<br>的更新，而采用反射机制的话，它就可以不用卸载，只需要在运行时才动态的创建和编译，就可以实现该功<br>能。 </p>
+<p>比如，一个大型的软件，不可能一次就把把它设计的很完美，当这个程序编<br>译后，发布了，当发现需要更新某些功能时，我们不可能要用户把以前的卸载，再重新安装新的版本，假如<br>这样的话，这个软件肯定是没有多少人用的。采用静态的话，需要把整个程序重新编译一次才可以实现功能<br>的更新，而采用反射机制的话，它就可以不用卸载，只需要在运行时才动态的创建和编译，就可以实现该功<br>能。</p>
 <p>它的缺点是对性能有影响。使用反射基本上是一种解释操作，我们可以告诉JVM，我们希望做什么并且它<br>满足我们的要求。这类操作总是慢于只直接执行相同的操作。</p>
-<p>###java反射的适用场景<br>在现在的后端开发中我们使用spring框架，有句话这么说反射机制是很多<strong>Java框架的基石</strong>，spring也用到很多反射机制。经典的就是在xml文件或者properties里面写好了配置，然后在Java类里面解析xml或properties里面的内容，得到一个字符串，然后用反射机制，根据这个字符串获得某个类的Class实例，这样就可以动态配置一些东西，而不是每一次都要在代码里new来new去，之后修改配置文件，代码维护就很方便</p>
+<h3 id="java反射的适用场景"><a href="#java反射的适用场景" class="headerlink" title="java反射的适用场景"></a>java反射的适用场景</h3><p>在现在的后端开发中我们使用spring框架，有句话这么说反射机制是很多<strong>Java框架的基石</strong>，spring也用到很多反射机制。经典的就是在xml文件或者properties里面写好了配置，然后在Java类里面解析xml或properties里面的内容，得到一个字符串，然后用反射机制，根据这个字符串获得某个类的Class实例，这样就可以动态配置一些东西，而不是每一次都要在代码里new来new去，之后修改配置文件，代码维护就很方便</p>
 <p>在编码阶段不知道那个类名,要在运行期从配置文件读取类名, 这时候就没有办法硬编码new ClassName(),而必须用到反射才能创建这个对象.反射的目的就是为了扩展未知的应用。</p>
 <p>在idea里，当我们构造出一个对象的时候，去调用对象的方法和属性时，当按下 “.” ，编译工具会自动把对象能够使用的所有方法和属性全部列出来，供用户选择，这就是利用了java反射的原理，对我们创建的对象探知，自审</p>
 <h3 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h3><p>Class.forName(classname)方法,实际上是调用了Class类中的 Class.forName(classname, true, currentLoader)方法。参数：name - 所需类的完全限定名；initialize - 是否必须初始化类；loader - 用于加载类的类加载器。currentLoader则是通过调用ClassLoader.getCallerClassLoader()获取当前类加载器的。类要想使用，必须用类加载器加载，所以需要加载器。反射机制，不是每次都去重新反射，而是提供了cache，每次都会需要类加载器去自己的cache中查找，如果可以查到，则直接返回该类。</p>
 <p>有意思的是java的类加载器也有些门道。它分为BootStrap Class Loader(引导类加载器)，Extensions Class Loader (扩展类加载器),App ClassLoader(或System Class Loader)，当然少不了Custom ClassLoader(用户自定义类加载器)。其加载过程中会先检查类是否被已加载，检查顺序是自底向上，从Custom ClassLoader到BootStrap ClassLoader逐层检查，只要某个classloader已加载就视为已加载此类，保证此类只所有ClassLoader加载一次。而加载的顺序是自顶向下，也就是由上层来逐层尝试加载此类。类</p>
 <p>  在forName方法中，调用了ClassLoader.loadClass方法来完成类的反射。根据类加载器的特殊性，结合我的调试过程，画了一个简单的流程图，<br><img src="http://img.blog.csdn.net/20130625103818562?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveGlhb3hpYW44MDIz/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt=""><br>       这幅图简单的说明了类加载器的类加载过程。先检查自己是否已经加载过该类，如果加载过，则直接返回该类，若没有则调用父类的loadClass方法，如果父类中没有，则执行findClass方法去尝试加载此类，也就是我们通常所理解的片面的”反射”了。这个过程主要通过ClassLoader.defineClass方法来完成。defineClass 方法将一个字节数组转换为 Class 类的实例（任何类的对象都是Class类的对象）。这种新定义的类的实例需要使用 Class.newInstance 来创建，而不能使用new来实例化。<br>    为什么说“任何类的对象都是Class类的对象”呢？在Java中，每个class都有一个相应的Class对象。也就是说，当我们编写一个类（.java文件），编译完成后，在生成的.class文件中，就会产生一个Class对象，用于表示这个类的类型信息。<br>     其实说的简单通俗一点，就是在运行期间，如果我们要产生某个类的对象，Java虚拟机（JVM）会检查该类型的Class对象是否已被加载。如果没有被加载，JVM会根据类的名称找到.class文件并加载它。一旦某个类型的Class对象已被加载到内存，就可以用它来产生该类型的所有对象。</p>
-<p>###反射机制的常用方法<br>利用反射机制能获得什么信息<br>         一句话，类中有什么信息，它就可以获得什么信息，不过前提是得知道类的名字，要不就没有后文了<br>    首先得根据传入的类的全名来创建Class对象。 </p>
+<p>###反射机制的常用方法<br>利用反射机制能获得什么信息<br>         一句话，类中有什么信息，它就可以获得什么信息，不过前提是得知道类的名字，要不就没有后文了<br>    首先得根据传入的类的全名来创建Class对象。</p>
   <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Class c=Class.forName(&quot;className&quot;);注明：className必须为全名，也就是得包含包名，比如，cn.netjava.pojo.UserInfo;</div></pre></td></tr></table></figure>
    <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Object obj=c.newInstance();//创建对象的实例 OK，有了对象就什么都好办了，想要什么信息就有什么信息了。</div><div class="line">```</div></pre></td></tr></table></figure>
 <p>   Constructor getConstructor(Class[] params)//根据指定参数获得public构造器</p>
@@ -276,14 +289,14 @@
 <p>   Method[] getDeclaredMethods()//获得所以的public和非public方法<br>    获得类中属性的方法<br>   Field getField(String name)//根据变量名得到相应的public变量</p>
 <p>   Field[] getFields()//获得类中所以public的方法</p>
 <p>   Field getDeclaredField(String name)//根据方法名获得public和非public变量</p>
-<p>   Field[] getDeclaredFields()//获得类中所有的public和非public方法<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">    </div><div class="line"></div><div class="line"></div><div class="line">###举例</div><div class="line"></div><div class="line">先建立一个类</div><div class="line"></div><div class="line">![](http://i2.muimg.com/567571/90a7446844df515c.png)</div></pre></td></tr></table></figure></p>
+<p>   Field[] getDeclaredFields()//获得类中所有的public和非public方法<br>  <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">### 举例</div><div class="line"></div><div class="line">先建立一个类</div><div class="line"></div><div class="line">![](http://i2.muimg.com/567571/90a7446844df515c.png)</div></pre></td></tr></table></figure></p>
 <p>static Class&lt;?&gt; forName(String className)<br>// 返回的是与带有给定字符串名的类或接口关联的class<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">即传入一个类的全称 （包+类名）</div></pre></td></tr></table></figure></p>
 <p>//caass 代表类的对象<br>Class clazz = Class.forName(“com.test.MyTest”);<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">隔壁老王模式开启，抓到这个类的对象了，就要干坏事了</div><div class="line">首先魔抓伸向构造器</div></pre></td></tr></table></figure></p>
 <p>//Constructor 代表类的构造器对象<br>Constructor constructor = clazz.getConstructor(String.class,int.class);<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">你不但拿到了构造器, 而且你关联了你上面拿到的类(clazz), 而且你也确定了参数的类型. 是不是?</div><div class="line"></div><div class="line">接下来获取这个类的方法</div></pre></td></tr></table></figure></p>
 <p>//Method 代表了这个类的方法对象<br>Method replyMethod = clazz.getMethod(“reply”,String.class);<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">方法调用</div></pre></td></tr></table></figure></p>
 <p>replyMethod.invoke(object,”hello”);<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">通过拿到的类(clazz)关联到了属于他的reply方法, 并且确定了参数的类型, 付给了方法对象replyMethod. 调用时, 通过方法对象replyMethod, 就能去&quot;激活&quot;属于object对象的reply方法, 而且你付给了他参数, 达到了&quot;激活&quot;的条件.</div><div class="line"></div><div class="line">无参数时这样调用</div></pre></td></tr></table></figure></p>
 <p>Method sayMethod = clazz.getMethod(“say”)；<br>sayMethod.invoke(null);<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">而且他还可以拿到成员变量</div></pre></td></tr></table></figure></p>
-<p>Field field = clazz.getDeclaredField(“name”);<br>field.setAccessible(true);<br>field.set(object, “LJT”);<br>System.out.println(field.get(object));<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">看一眼运行结果</div><div class="line">![](http://i4.buimg.com/567571/f79dd004f0c07c26.png)</div><div class="line"> 简直震惊了我，成员变量我定义的都是private啊</div><div class="line"> </div><div class="line"> 所有说</div><div class="line">**在编程里说好的私有都是骗人的(XDXD)**, 而这就是反射里一个非常重要的机制, 他可以强行获取私有成员变量, 忽略字段的访问权限检查, 这里面能做的文章可就多了.</div><div class="line">而这就归功于这个方法.</div></pre></td></tr></table></figure></p>
+<p>Field field = clazz.getDeclaredField(“name”);<br>field.setAccessible(true);<br>field.set(object, “LJT”);<br>System.out.println(field.get(object));<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">看一眼运行结果</div><div class="line">![](http://i4.buimg.com/567571/f79dd004f0c07c26.png)</div><div class="line"> 简直震惊了我，成员变量我定义的都是private啊</div><div class="line"></div><div class="line"> 所有说</div><div class="line">**在编程里说好的私有都是骗人的(XDXD)**, 而这就是反射里一个非常重要的机制, 他可以强行获取私有成员变量, 忽略字段的访问权限检查, 这里面能做的文章可就多了.</div><div class="line">而这就归功于这个方法.</div></pre></td></tr></table></figure></p>
 <p>field.setAccessible(true);<br>``</p>
 <p>展示一下spring中反射机制结合属性文件的工厂模式（IOC）</p>
 <p><img src="https://timgsa.baidu.com/timg?image&amp;quality=80&amp;size=b10000_10000&amp;sec=1491752003&amp;di=9b4d39959b33d2dce48de7b2d5e14197&amp;src=http://wx2.sinaimg.cn/thumb300/006jfNXqly1fayqr8r655j305i05i0sq0.jpg" alt=""></p>
