@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Springboot +mybatis + Tomcat 部署 | 哲</title>
+
+  <!-- keywords -->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="部署从理论上来说十分的简单，但是运维过程还是有点艰辛的，大致说一下我的部署过程 springboot打包成war 修改打包方式和命名  1&amp;lt;packaging&amp;gt;war&amp;lt;/packaging&amp;gt;   1&amp;lt;name&amp;gt;voter&amp;lt;/name&amp;gt;  去除内置的Tomcat  12345&amp;lt;dependency&amp;gt;     &amp;lt;groupId&amp;gt;o">
+<meta name="keywords">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Springboot +mybatis + Tomcat 部署">
+<meta property="og:url" content="http://helloyz.cn/2017/05/27/Springboot/index.html">
+<meta property="og:site_name" content="哲">
+<meta property="og:description" content="部署从理论上来说十分的简单，但是运维过程还是有点艰辛的，大致说一下我的部署过程 springboot打包成war 修改打包方式和命名  1&amp;lt;packaging&amp;gt;war&amp;lt;/packaging&amp;gt;   1&amp;lt;name&amp;gt;voter&amp;lt;/name&amp;gt;  去除内置的Tomcat  12345&amp;lt;dependency&amp;gt;     &amp;lt;groupId&amp;gt;o">
+<meta property="og:updated_time" content="2017-05-28T09:28:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Springboot +mybatis + Tomcat 部署">
+<meta name="twitter:description" content="部署从理论上来说十分的简单，但是运维过程还是有点艰辛的，大致说一下我的部署过程 springboot打包成war 修改打包方式和命名  1&amp;lt;packaging&amp;gt;war&amp;lt;/packaging&amp;gt;   1&amp;lt;name&amp;gt;voter&amp;lt;/name&amp;gt;  去除内置的Tomcat  12345&amp;lt;dependency&amp;gt;     &amp;lt;groupId&amp;gt;o">
+  
+    <link rel="alternative" href="/atom.xml" title="哲" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="http://p1.bpimg.com/4851/f8a4d2916936fe06.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+
+  <script src="//cdn.bootcss.com/require.js/2.3.2/require.min.js"></script>
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+
+  
+</head>
+<body>
+  <div id="container">
+    <div id="particles-js"></div>
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="http://p1.bpimg.com/4851/f8a4d2916936fe06.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Molybdenum</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+							<li><a href="/tags/技术">随笔</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="/最好的年岁">aboutme</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Molybdenum</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="http://p1.bpimg.com/4851/f8a4d2916936fe06.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Molybdenum</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+					<li><a href="/tags/技术">随笔</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-Springboot" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/05/27/Springboot/" class="article-date">
+  	<time datetime="2017-05-26T17:05:49.000Z" itemprop="datePublished">2017-05-27</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Springboot +mybatis + Tomcat 部署
+      
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>部署从理论上来说十分的简单，但是运维过程还是有点艰辛的，大致说一下我的部署过程</p>
+<h2 id="springboot打包成war"><a href="#springboot打包成war" class="headerlink" title="springboot打包成war"></a>springboot打包成war</h2><ol>
+<li><p>修改打包方式和命名</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;packaging&gt;war&lt;/packaging&gt;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;name&gt;voter&lt;/name&gt;</div></pre></td></tr></table></figure>
+</code></pre><ol>
+<li><p>去除内置的Tomcat</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;dependency&gt;</div><div class="line">     &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">     &lt;artifactId&gt;spring-boot-starter-tomcat&lt;/artifactId&gt;</div><div class="line">     &lt;scope&gt;provided&lt;/scope&gt;</div><div class="line"> &lt;/dependency&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>添加Tomcat servlet-api </p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;dependency&gt;</div><div class="line">       &lt;groupId&gt;org.apache.tomcat&lt;/groupId&gt;</div><div class="line">       &lt;artifactId&gt;tomcat-servlet-api&lt;/artifactId&gt;</div><div class="line">       &lt;version&gt;8.0.36&lt;/version&gt;</div><div class="line">       &lt;scope&gt;provided&lt;/scope&gt;</div><div class="line"> &lt;/dependency&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>解决某些java包找不到的问题 （path Unix用：分割，Windows用；）</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;plugin&gt;</div><div class="line">   	&lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;</div><div class="line">   	&lt;version&gt;2.5.1&lt;/version&gt;</div><div class="line">      &lt;configuration&gt;</div><div class="line">           &lt;source&gt;1.7&lt;/source&gt;</div><div class="line">           &lt;target&gt;1.7&lt;/target&gt;</div><div class="line">           &lt;encoding&gt;UTF-8&lt;/encoding&gt;</div><div class="line">           &lt;compilerArguments&gt;</div><div class="line">             &lt;verbose /&gt;</div><div class="line">             &lt;bootclasspath&gt;$&#123;java.home&#125;/lib/rt.jar:$&#123;java.home&#125;/lib/jce.jar&lt;/bootclasspath&gt;</div><div class="line">             &lt;/compilerArguments&gt;</div><div class="line">           &lt;/configuration&gt;</div><div class="line"> &lt;/plugin&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>添加mevan打war包插件 这里也可以指定包名</p>
+</li>
+</ol>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">  	 &lt;plugin&gt;</div><div class="line">                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</div><div class="line">                &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;</div><div class="line">                &lt;version&gt;2.1.1&lt;/version&gt;</div><div class="line">                &lt;configuration&gt;</div><div class="line">                    &lt;warName&gt;voter&lt;/warName&gt;</div><div class="line">                &lt;/configuration&gt;</div><div class="line">	  &lt;/plugin&gt;</div><div class="line">	```        </div><div class="line"></div><div class="line"></div><div class="line">6. 继承SpringbootServeletInitializer 重写configure方法 注册一个实例</div></pre></td></tr></table></figure>
+
+    @SpringBootApplication
+    @MapperScan(&quot;com.neuqer.voter.mapper&quot;)
+    @EnableAutoConfiguration    
+    public class VoterApplication extends SpringBootServletInitializer {
+
+        public static void main(String[] args){
+            SpringApplication.run(VoterApplication.class,args);
+        }
+        @Override
+        protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+            return builder.sources(VoterApplication.class);
+        }
+    }
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">  </div><div class="line">最后用meavn 命令打包</div></pre></td></tr></table></figure>
+
+ clean package
+
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"> 	它会编译一遍，跑你的所有测试类，注意测试类里不能有错误，自己抛的异常也不行</div><div class="line"> 	</div><div class="line"> 	全部通过后会在targe里生成对应的war包</div><div class="line"> 	</div><div class="line"> </div><div class="line">## 本地Tomcat部署</div><div class="line">系统：OSX</div><div class="line"></div><div class="line">[tomcat下载地址](http://tomcat.apache.org/download-70.cgi)</div><div class="line"></div><div class="line">我选的Tomcat7感觉版本居中可以保佑我少一些运维</div><div class="line"></div><div class="line">解压到一个路径下 我选的 /usr/local/tomcat</div><div class="line"></div><div class="line">给/bin/*.sh 755</div><div class="line"></div><div class="line">在bin里终端中输入</div></pre></td></tr></table></figure>
+
+./startup.sh    
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">	</div><div class="line">启动Tomcat</div><div class="line"></div><div class="line">没什么问题的话在 localhost:8080 会看到Tomcat那丑陋的猫</div><div class="line"></div><div class="line">把生成的 war 包放在webapps 里</div><div class="line"></div><div class="line">等待一会儿访问localhost:8080/[包名]</div><div class="line"></div><div class="line">正常的话可以看到你的项目的主页</div><div class="line"></div><div class="line">**万一**</div><div class="line"></div><div class="line">**如果**</div><div class="line"></div><div class="line">**运气不好**</div><div class="line"></div><div class="line">你就会看到 404 </div><div class="line"></div><div class="line">这表明你的服务没有成功的启动</div><div class="line"></div><div class="line">如果要看项目的运行情况可以在 /manager里查看</div><div class="line"> </div><div class="line">第一次进入会提示你输入账号密码</div><div class="line"></div><div class="line">你得先在 tomcat/conf/tomcat-user.xml</div><div class="line"></div><div class="line">中添加角色</div></pre></td></tr></table></figure>
+<pre><code>   &lt;role rolename=&quot;manager-gui&quot;/&gt;
+&lt;user username=&quot;root&quot; password=&quot;root&quot; roles=&quot;tomcat,role1,manager-gui,manager-script,manager-jmx,manager-status&quot;/&gt;
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">	</div><div class="line">重启服务就能进入管理界面</div><div class="line">启动时错误的log可以在localhost或者catalina.log中查看</div><div class="line">访问的url可以在 localhost_access.log中查看到</div><div class="line"></div><div class="line">### 我在本地部署遇到的一些坑</div><div class="line">首先在本地服务器无法启动，看日志是，属性名不能为空，一脸懵逼之后，找了很多资料，往他的报错上看是pagehelper不能注册成bean</div><div class="line">所以我去爬了pagehelper的issues 发现是spring boot 2.0 取消了RelaxedPropertyResolver这个类，所以会报错，回滚spring boot 版本到1.5.x就可以了。</div><div class="line"></div><div class="line">之后是部署成功后各种500 全部是要求登陆，看来是token拦截器挂了，因为不知道请求路由是什么所以很尴尬，不好添加不检查的路由</div><div class="line">后来发现了那个日志文件 就一切豁然开朗了</div><div class="line"></div><div class="line"></div><div class="line">## 部署到腾讯云（Ubuntu 14.04）</div><div class="line"></div><div class="line">1. 装Tomcat，就不多说了</div><div class="line">2. 装Java8</div><div class="line">	</div><div class="line">	安装python-software-properties</div></pre></td></tr></table></figure>
+<pre><code>$sudo apt-get install python-software-properties
+</code></pre><p>$sudo apt-get install software-properties-common<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">首先添加ppa</div></pre></td></tr></table></figure></p>
+<pre><code>$ sudo add-apt-repository ppa:webupd8team/java
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">然后更新系统</div></pre></td></tr></table></figure>
+
+$ sudo apt-get update
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">开始安装</div></pre></td></tr></table></figure>
+
+$ sudo apt-get install oracle-java8-installer
+</code></pre><p>$ java -version<br>java version “1.8.0_05”<br>Java(TM) SE Runtime Environment (build 1.8.0_05-b13)<br>Java HotSpot(TM) Server VM (build 25.5-b02, mixed mode)<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">切换版本</div></pre></td></tr></table></figure></p>
+<pre><code>sudo update-java-alternatives -s java-8-oracle
+```
+
+网上说最好使用管理员身份
+</code></pre><ol>
+<li>装mysql</li>
+<li>scp 上传本地文件到云服务器</li>
+<li>用管理员身份启动Tomcat 由于8080端口腾讯云比较坑，所有通常要很久才能访问到，但是一旦成功，还没有蹦过</li>
+</ol>
+<p>在云端没有什么运维，一遍过，希望都有这样的好运气</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/04/21/Spring-Boot/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">&lt;</strong>
+      <div class="article-nav-title">
+        
+          初学springboot
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+
+<div class="ds-share share" data-thread-key="Springboot" data-title="Springboot +mybatis + Tomcat 部署" data-url="http://helloyz.cn/2017/05/27/Springboot/"  data-images="http://p1.bpimg.com/4851/f8a4d2916936fe06.jpg" data-content="Springboot +mybatis + Tomcat 部署">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+ </div>
+ 
+
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+      <div class="footer-left">
+        &copy; 2017 Molybdenum
+      </div>
+        <div class="footer-right">
+          <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/smackgg/hexo-theme-smackdown" target="_blank">Smackdown</a>
+        </div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: true
+	}
+</script>
+<script src="/js/main.js"></script>
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js"></script>
+
+
+  </div>
+</body>
+</html>

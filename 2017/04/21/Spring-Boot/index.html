@@ -3,23 +3,23 @@
 <head>
   <meta charset="utf-8">
   
-  <title>哲</title>
+  <title>初学springboot | 哲</title>
 
   <!-- keywords -->
   
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="##password    BCrypt.haspw(password,Bcrypt.gensalt())；随机加盐哈希加密    BCrypt.checkpw(password,hashedPassword);校对密码 ##@valid1234567891011public Response register(@RequestBody @Valid UserRegisterRequest req">
+  <meta name="description" content="passwordBCrypt.haspw(password,Bcrypt.gensalt())；随机加盐哈希加密 BCrypt.checkpw(password,hashedPassword);校对密码 @valid1234567891011public Response register(@RequestBody @Valid UserRegisterRequest request) throw">
 <meta name="keywords">
 <meta property="og:type" content="article">
-<meta property="og:title" content="哲">
+<meta property="og:title" content="初学springboot">
 <meta property="og:url" content="http://helloyz.cn/2017/04/21/Spring-Boot/index.html">
 <meta property="og:site_name" content="哲">
-<meta property="og:description" content="##password    BCrypt.haspw(password,Bcrypt.gensalt())；随机加盐哈希加密    BCrypt.checkpw(password,hashedPassword);校对密码 ##@valid1234567891011public Response register(@RequestBody @Valid UserRegisterRequest req">
-<meta property="og:updated_time" content="2017-04-26T19:46:31.000Z">
+<meta property="og:description" content="passwordBCrypt.haspw(password,Bcrypt.gensalt())；随机加盐哈希加密 BCrypt.checkpw(password,hashedPassword);校对密码 @valid1234567891011public Response register(@RequestBody @Valid UserRegisterRequest request) throw">
+<meta property="og:updated_time" content="2017-05-28T09:32:27.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="哲">
-<meta name="twitter:description" content="##password    BCrypt.haspw(password,Bcrypt.gensalt())；随机加盐哈希加密    BCrypt.checkpw(password,hashedPassword);校对密码 ##@valid1234567891011public Response register(@RequestBody @Valid UserRegisterRequest req">
+<meta name="twitter:title" content="初学springboot">
+<meta name="twitter:description" content="passwordBCrypt.haspw(password,Bcrypt.gensalt())；随机加盐哈希加密 BCrypt.checkpw(password,hashedPassword);校对密码 @valid1234567891011public Response register(@RequestBody @Valid UserRegisterRequest request) throw">
   
     <link rel="alternative" href="/atom.xml" title="哲" type="application/atom+xml">
   
@@ -182,10 +182,31 @@
       <input type="hidden" class="isFancy" />
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      初学springboot
+      
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <p>##password<br>    BCrypt.haspw(password,Bcrypt.gensalt())；随机加盐哈希加密<br>    BCrypt.checkpw(password,hashedPassword);校对密码</p>
-<p>##@valid<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> Response <span class="title">register</span><span class="params">(@RequestBody @Valid UserRegisterRequest request)</span> <span class="keyword">throws</span> BaseException</span>&#123;</div><div class="line"></div><div class="line">        User user = <span class="keyword">new</span> User();</div><div class="line">        user.setName(request.getName());</div><div class="line">        user.setMobile(request.getMobile());</div><div class="line">        user.setPassword(request.getPassword());</div><div class="line"></div><div class="line">        userService.registerUser(user);</div><div class="line"></div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Response(<span class="number">0</span>,<span class="keyword">null</span>);</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+        <h2 id="password"><a href="#password" class="headerlink" title="password"></a>password</h2><pre><code>BCrypt.haspw(password,Bcrypt.gensalt())；随机加盐哈希加密
+BCrypt.checkpw(password,hashedPassword);校对密码
+</code></pre><h2 id="valid"><a href="#valid" class="headerlink" title="@valid"></a>@valid</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> Response <span class="title">register</span><span class="params">(@RequestBody @Valid UserRegisterRequest request)</span> <span class="keyword">throws</span> BaseException</span>&#123;</div><div class="line"></div><div class="line">        User user = <span class="keyword">new</span> User();</div><div class="line">        user.setName(request.getName());</div><div class="line">        user.setMobile(request.getMobile());</div><div class="line">        user.setPassword(request.getPassword());</div><div class="line"></div><div class="line">        userService.registerUser(user);</div><div class="line"></div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Response(<span class="number">0</span>,<span class="keyword">null</span>);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
 <p>开启表单验证，在dto中</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">public class UserRegisterRequest &#123;</div><div class="line">    @NotBlank</div><div class="line">    private String mobile;</div><div class="line">    @NotBlank</div><div class="line">    private String name;</div><div class="line">    @NotBlank</div><div class="line">    private String password;</div><div class="line"></div><div class="line">    public String getMobile() &#123;</div><div class="line">        return mobile;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setMobile(String mobile) &#123;</div><div class="line">        this.mobile = mobile;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public String getName() &#123;</div><div class="line">        return name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setName(String name) &#123;</div><div class="line">        this.name = name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public String getPassword() &#123;</div><div class="line">        return password;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setPassword(String password) &#123;</div><div class="line">        this.password = password;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>空检查</p>
@@ -219,12 +240,18 @@
 <p>@ScriptAssert(lang= ,script=, alias=)</p>
 <p>@URL(protocol=,host=, port=,regexp=, flags=)</p>
 <h2 id="currentTime"><a href="#currentTime" class="headerlink" title="currentTime"></a>currentTime</h2><p>Utils.createTimeStamp();</p>
-<p>##随机串<br>Utils.createUUID();</p>
-<p>##Insert<br>    //userMapper.xml<br>    <!--设置获取自增主键--><br>    <insert id="createUser" parametertype="User" usegeneratedkeys="true" keyproperty="id"><br>        INSERT INTO users (name,mobile,password,status,created_at,updated_at)<br>        VALUES (#{name},#{mobile},#{password},#{status},#{createdAt},#{updatedAt});<br>    </insert></p>
-<pre><code>//userMapper.java
-Integer createUser(User user);
-</code></pre><p>##</p>
+<h2 id="随机串"><a href="#随机串" class="headerlink" title="随机串"></a>随机串</h2><p>Utils.createUUID();</p>
+<h2 id="Insert"><a href="#Insert" class="headerlink" title="Insert"></a>Insert</h2><pre><code>//userMapper.xml
+&lt;!--设置获取自增主键--&gt;
+&lt;insert id=&quot;createUser&quot; parameterType=&quot;User&quot; useGeneratedKeys=&quot;true&quot; keyProperty=&quot;id&quot;&gt;
+    INSERT INTO users (name,mobile,password,status,created_at,updated_at)
+    VALUES (#{name},#{mobile},#{password},#{status},#{createdAt},#{updatedAt});
+&lt;/insert&gt;
 
+
+
+//userMapper.java
+</code></pre>
       
     </div>
     
@@ -243,13 +270,18 @@ Integer createUser(User user);
     </a>
   
   
+    <a href="/2017/05/27/Springboot/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Springboot +mybatis + Tomcat 部署</div>
+      <strong class="article-nav-caption">&gt;</strong>
+    </a>
+  
 </nav>
 
   
 </article>
 
 
-<div class="ds-share share" data-thread-key="Spring-Boot" data-title="" data-url="http://helloyz.cn/2017/04/21/Spring-Boot/"  data-images="http://p1.bpimg.com/4851/f8a4d2916936fe06.jpg" data-content="">
+<div class="ds-share share" data-thread-key="Spring-Boot" data-title="初学springboot" data-url="http://helloyz.cn/2017/04/21/Spring-Boot/"  data-images="http://p1.bpimg.com/4851/f8a4d2916936fe06.jpg" data-content="初学springboot">
     <div class="ds-share-inline">
       <ul  class="ds-share-icons-16">
       	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>

@@ -169,6 +169,127 @@
 </nav>
       <div class="body-wrap">
   
+    <article id="post-Springboot" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/05/27/Springboot/" class="article-date">
+  	<time datetime="2017-05-26T17:05:49.000Z" itemprop="datePublished">2017-05-27</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/05/27/Springboot/">
+        Springboot +mybatis + Tomcat 部署
+        
+      </a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>部署从理论上来说十分的简单，但是运维过程还是有点艰辛的，大致说一下我的部署过程</p>
+<h2 id="springboot打包成war"><a href="#springboot打包成war" class="headerlink" title="springboot打包成war"></a>springboot打包成war</h2><ol>
+<li><p>修改打包方式和命名</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;packaging&gt;war&lt;/packaging&gt;</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;name&gt;voter&lt;/name&gt;</div></pre></td></tr></table></figure>
+</code></pre><ol>
+<li><p>去除内置的Tomcat</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;dependency&gt;</div><div class="line">     &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</div><div class="line">     &lt;artifactId&gt;spring-boot-starter-tomcat&lt;/artifactId&gt;</div><div class="line">     &lt;scope&gt;provided&lt;/scope&gt;</div><div class="line"> &lt;/dependency&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>添加Tomcat servlet-api </p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;dependency&gt;</div><div class="line">       &lt;groupId&gt;org.apache.tomcat&lt;/groupId&gt;</div><div class="line">       &lt;artifactId&gt;tomcat-servlet-api&lt;/artifactId&gt;</div><div class="line">       &lt;version&gt;8.0.36&lt;/version&gt;</div><div class="line">       &lt;scope&gt;provided&lt;/scope&gt;</div><div class="line"> &lt;/dependency&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>解决某些java包找不到的问题 （path Unix用：分割，Windows用；）</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">&lt;plugin&gt;</div><div class="line">   	&lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;</div><div class="line">   	&lt;version&gt;2.5.1&lt;/version&gt;</div><div class="line">      &lt;configuration&gt;</div><div class="line">           &lt;source&gt;1.7&lt;/source&gt;</div><div class="line">           &lt;target&gt;1.7&lt;/target&gt;</div><div class="line">           &lt;encoding&gt;UTF-8&lt;/encoding&gt;</div><div class="line">           &lt;compilerArguments&gt;</div><div class="line">             &lt;verbose /&gt;</div><div class="line">             &lt;bootclasspath&gt;$&#123;java.home&#125;/lib/rt.jar:$&#123;java.home&#125;/lib/jce.jar&lt;/bootclasspath&gt;</div><div class="line">             &lt;/compilerArguments&gt;</div><div class="line">           &lt;/configuration&gt;</div><div class="line"> &lt;/plugin&gt;</div></pre></td></tr></table></figure>
+</li>
+<li><p>添加mevan打war包插件 这里也可以指定包名</p>
+</li>
+</ol>
+<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">  	 &lt;plugin&gt;</div><div class="line">                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</div><div class="line">                &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;</div><div class="line">                &lt;version&gt;2.1.1&lt;/version&gt;</div><div class="line">                &lt;configuration&gt;</div><div class="line">                    &lt;warName&gt;voter&lt;/warName&gt;</div><div class="line">                &lt;/configuration&gt;</div><div class="line">	  &lt;/plugin&gt;</div><div class="line">	```        </div><div class="line"></div><div class="line"></div><div class="line">6. 继承SpringbootServeletInitializer 重写configure方法 注册一个实例</div></pre></td></tr></table></figure>
+
+    @SpringBootApplication
+    @MapperScan(&quot;com.neuqer.voter.mapper&quot;)
+    @EnableAutoConfiguration    
+    public class VoterApplication extends SpringBootServletInitializer {
+
+        public static void main(String[] args){
+            SpringApplication.run(VoterApplication.class,args);
+        }
+        @Override
+        protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+            return builder.sources(VoterApplication.class);
+        }
+    }
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">  </div><div class="line">最后用meavn 命令打包</div></pre></td></tr></table></figure>
+
+ clean package
+
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"> 	它会编译一遍，跑你的所有测试类，注意测试类里不能有错误，自己抛的异常也不行</div><div class="line"> 	</div><div class="line"> 	全部通过后会在targe里生成对应的war包</div><div class="line"> 	</div><div class="line"> </div><div class="line">## 本地Tomcat部署</div><div class="line">系统：OSX</div><div class="line"></div><div class="line">[tomcat下载地址](http://tomcat.apache.org/download-70.cgi)</div><div class="line"></div><div class="line">我选的Tomcat7感觉版本居中可以保佑我少一些运维</div><div class="line"></div><div class="line">解压到一个路径下 我选的 /usr/local/tomcat</div><div class="line"></div><div class="line">给/bin/*.sh 755</div><div class="line"></div><div class="line">在bin里终端中输入</div></pre></td></tr></table></figure>
+
+./startup.sh    
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">	</div><div class="line">启动Tomcat</div><div class="line"></div><div class="line">没什么问题的话在 localhost:8080 会看到Tomcat那丑陋的猫</div><div class="line"></div><div class="line">把生成的 war 包放在webapps 里</div><div class="line"></div><div class="line">等待一会儿访问localhost:8080/[包名]</div><div class="line"></div><div class="line">正常的话可以看到你的项目的主页</div><div class="line"></div><div class="line">**万一**</div><div class="line"></div><div class="line">**如果**</div><div class="line"></div><div class="line">**运气不好**</div><div class="line"></div><div class="line">你就会看到 404 </div><div class="line"></div><div class="line">这表明你的服务没有成功的启动</div><div class="line"></div><div class="line">如果要看项目的运行情况可以在 /manager里查看</div><div class="line"> </div><div class="line">第一次进入会提示你输入账号密码</div><div class="line"></div><div class="line">你得先在 tomcat/conf/tomcat-user.xml</div><div class="line"></div><div class="line">中添加角色</div></pre></td></tr></table></figure>
+<pre><code>   &lt;role rolename=&quot;manager-gui&quot;/&gt;
+&lt;user username=&quot;root&quot; password=&quot;root&quot; roles=&quot;tomcat,role1,manager-gui,manager-script,manager-jmx,manager-status&quot;/&gt;
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">	</div><div class="line">重启服务就能进入管理界面</div><div class="line">启动时错误的log可以在localhost或者catalina.log中查看</div><div class="line">访问的url可以在 localhost_access.log中查看到</div><div class="line"></div><div class="line">### 我在本地部署遇到的一些坑</div><div class="line">首先在本地服务器无法启动，看日志是，属性名不能为空，一脸懵逼之后，找了很多资料，往他的报错上看是pagehelper不能注册成bean</div><div class="line">所以我去爬了pagehelper的issues 发现是spring boot 2.0 取消了RelaxedPropertyResolver这个类，所以会报错，回滚spring boot 版本到1.5.x就可以了。</div><div class="line"></div><div class="line">之后是部署成功后各种500 全部是要求登陆，看来是token拦截器挂了，因为不知道请求路由是什么所以很尴尬，不好添加不检查的路由</div><div class="line">后来发现了那个日志文件 就一切豁然开朗了</div><div class="line"></div><div class="line"></div><div class="line">## 部署到腾讯云（Ubuntu 14.04）</div><div class="line"></div><div class="line">1. 装Tomcat，就不多说了</div><div class="line">2. 装Java8</div><div class="line">	</div><div class="line">	安装python-software-properties</div></pre></td></tr></table></figure>
+<pre><code>$sudo apt-get install python-software-properties
+</code></pre><p>$sudo apt-get install software-properties-common<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">首先添加ppa</div></pre></td></tr></table></figure></p>
+<pre><code>$ sudo add-apt-repository ppa:webupd8team/java
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">然后更新系统</div></pre></td></tr></table></figure>
+
+$ sudo apt-get update
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">开始安装</div></pre></td></tr></table></figure>
+
+$ sudo apt-get install oracle-java8-installer
+</code></pre><p>$ java -version<br>java version “1.8.0_05”<br>Java(TM) SE Runtime Environment (build 1.8.0_05-b13)<br>Java HotSpot(TM) Server VM (build 25.5-b02, mixed mode)<br>    <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">切换版本</div></pre></td></tr></table></figure></p>
+<pre><code>sudo update-java-alternatives -s java-8-oracle
+```
+
+网上说最好使用管理员身份
+</code></pre><ol>
+<li>装mysql</li>
+<li>scp 上传本地文件到云服务器</li>
+<li>用管理员身份启动Tomcat 由于8080端口腾讯云比较坑，所有通常要很久才能访问到，但是一旦成功，还没有蹦过</li>
+</ol>
+<p>在云端没有什么运维，一遍过，希望都有这样的好运气</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+      
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-Spring-Boot" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -182,10 +303,25 @@
       <input type="hidden" class="isFancy" />
     
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/04/21/Spring-Boot/">
+        初学springboot
+        
+      </a>
+    </h1>
+  
+
+      </header>
+      
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <p>##password<br>    BCrypt.haspw(password,Bcrypt.gensalt())；随机加盐哈希加密<br>    BCrypt.checkpw(password,hashedPassword);校对密码</p>
-<p>##@valid<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> Response <span class="title">register</span><span class="params">(@RequestBody @Valid UserRegisterRequest request)</span> <span class="keyword">throws</span> BaseException</span>&#123;</div><div class="line"></div><div class="line">        User user = <span class="keyword">new</span> User();</div><div class="line">        user.setName(request.getName());</div><div class="line">        user.setMobile(request.getMobile());</div><div class="line">        user.setPassword(request.getPassword());</div><div class="line"></div><div class="line">        userService.registerUser(user);</div><div class="line"></div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Response(<span class="number">0</span>,<span class="keyword">null</span>);</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+        <h2 id="password"><a href="#password" class="headerlink" title="password"></a>password</h2><pre><code>BCrypt.haspw(password,Bcrypt.gensalt())；随机加盐哈希加密
+BCrypt.checkpw(password,hashedPassword);校对密码
+</code></pre><h2 id="valid"><a href="#valid" class="headerlink" title="@valid"></a>@valid</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> Response <span class="title">register</span><span class="params">(@RequestBody @Valid UserRegisterRequest request)</span> <span class="keyword">throws</span> BaseException</span>&#123;</div><div class="line"></div><div class="line">        User user = <span class="keyword">new</span> User();</div><div class="line">        user.setName(request.getName());</div><div class="line">        user.setMobile(request.getMobile());</div><div class="line">        user.setPassword(request.getPassword());</div><div class="line"></div><div class="line">        userService.registerUser(user);</div><div class="line"></div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Response(<span class="number">0</span>,<span class="keyword">null</span>);</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
 <p>开启表单验证，在dto中</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">public class UserRegisterRequest &#123;</div><div class="line">    @NotBlank</div><div class="line">    private String mobile;</div><div class="line">    @NotBlank</div><div class="line">    private String name;</div><div class="line">    @NotBlank</div><div class="line">    private String password;</div><div class="line"></div><div class="line">    public String getMobile() &#123;</div><div class="line">        return mobile;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setMobile(String mobile) &#123;</div><div class="line">        this.mobile = mobile;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public String getName() &#123;</div><div class="line">        return name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setName(String name) &#123;</div><div class="line">        this.name = name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public String getPassword() &#123;</div><div class="line">        return password;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setPassword(String password) &#123;</div><div class="line">        this.password = password;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>空检查</p>
@@ -219,12 +355,18 @@
 <p>@ScriptAssert(lang= ,script=, alias=)</p>
 <p>@URL(protocol=,host=, port=,regexp=, flags=)</p>
 <h2 id="currentTime"><a href="#currentTime" class="headerlink" title="currentTime"></a>currentTime</h2><p>Utils.createTimeStamp();</p>
-<p>##随机串<br>Utils.createUUID();</p>
-<p>##Insert<br>    //userMapper.xml<br>    <!--设置获取自增主键--><br>    <insert id="createUser" parametertype="User" usegeneratedkeys="true" keyproperty="id"><br>        INSERT INTO users (name,mobile,password,status,created_at,updated_at)<br>        VALUES (#{name},#{mobile},#{password},#{status},#{createdAt},#{updatedAt});<br>    </insert></p>
-<pre><code>//userMapper.java
-Integer createUser(User user);
-</code></pre><p>##</p>
+<h2 id="随机串"><a href="#随机串" class="headerlink" title="随机串"></a>随机串</h2><p>Utils.createUUID();</p>
+<h2 id="Insert"><a href="#Insert" class="headerlink" title="Insert"></a>Insert</h2><pre><code>//userMapper.xml
+&lt;!--设置获取自增主键--&gt;
+&lt;insert id=&quot;createUser&quot; parameterType=&quot;User&quot; useGeneratedKeys=&quot;true&quot; keyProperty=&quot;id&quot;&gt;
+    INSERT INTO users (name,mobile,password,status,created_at,updated_at)
+    VALUES (#{name},#{mobile},#{password},#{status},#{createdAt},#{updatedAt});
+&lt;/insert&gt;
 
+
+
+//userMapper.java
+</code></pre>
       
     </div>
     
