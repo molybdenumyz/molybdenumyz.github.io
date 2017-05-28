@@ -169,11 +169,11 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-Spring-Boot" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2017/04/12/hello-world/" class="article-date">
-  	<time datetime="2017-04-12T11:19:25.000Z" itemprop="datePublished">2017-04-12</time>
+      <a href="/2017/04/21/Spring-Boot/" class="article-date">
+  	<time datetime="2017-04-21T11:20:30.000Z" itemprop="datePublished">2017-04-21</time>
 </a>
     </div>
   
@@ -182,31 +182,48 @@
       <input type="hidden" class="isFancy" />
     
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/12/hello-world/">
-        Hello World
-        
-      </a>
-    </h1>
-  
-
-      </header>
-      
-    
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <p>##password<br>    BCrypt.haspw(password,Bcrypt.gensalt())；随机加盐哈希加密<br>    BCrypt.checkpw(password,hashedPassword);校对密码</p>
+<p>##@valid<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> Response <span class="title">register</span><span class="params">(@RequestBody @Valid UserRegisterRequest request)</span> <span class="keyword">throws</span> BaseException</span>&#123;</div><div class="line"></div><div class="line">        User user = <span class="keyword">new</span> User();</div><div class="line">        user.setName(request.getName());</div><div class="line">        user.setMobile(request.getMobile());</div><div class="line">        user.setPassword(request.getPassword());</div><div class="line"></div><div class="line">        userService.registerUser(user);</div><div class="line"></div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Response(<span class="number">0</span>,<span class="keyword">null</span>);</div><div class="line">    &#125;</div></pre></td></tr></table></figure></p>
+<p>开启表单验证，在dto中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">public class UserRegisterRequest &#123;</div><div class="line">    @NotBlank</div><div class="line">    private String mobile;</div><div class="line">    @NotBlank</div><div class="line">    private String name;</div><div class="line">    @NotBlank</div><div class="line">    private String password;</div><div class="line"></div><div class="line">    public String getMobile() &#123;</div><div class="line">        return mobile;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setMobile(String mobile) &#123;</div><div class="line">        this.mobile = mobile;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public String getName() &#123;</div><div class="line">        return name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setName(String name) &#123;</div><div class="line">        this.name = name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public String getPassword() &#123;</div><div class="line">        return password;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public void setPassword(String password) &#123;</div><div class="line">        this.password = password;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>空检查</p>
+<p>@Null       验证对象是否为null</p>
+<p>@NotNull    验证对象是否不为null, 无法查检长度为0的字符串</p>
+<p>@NotBlank 检查约束字符串是不是Null还有被Trim的长度是否大于0,只对字符串,且会去掉前后空格.</p>
+<p>@NotEmpty 检查约束元素是否为NULL或者是EMPTY.</p>
+<p>Booelan检查</p>
+<p>@AssertTrue     验证 Boolean 对象是否为 true</p>
+<p>@AssertFalse    验证 Boolean 对象是否为 false  </p>
+<p>长度检查</p>
+<p>@Size(min=, max=) 验证对象（Array,Collection,Map,String）长度是否在给定的范围之内</p>
+<p>@Length(min=, max=) Validates that the annotated string is between min and max included.</p>
+<p>日期检查</p>
+<p>@Past           验证 Date 和 Calendar 对象是否在当前时间之前  </p>
+<p>@Future     验证 Date 和 Calendar 对象是否在当前时间之后  </p>
+<p>@Pattern    验证 String 对象是否符合正则表达式的规则</p>
+<p>数值检查</p>
+<p>建议使用在Stirng,Integer类型，不建议使用在int类型上，因为表单值为“”时无法转换为int，但可以转换为Stirng为””,Integer为null</p>
+<p>@Min            验证 Number 和 String 对象是否大等于指定的值  </p>
+<p>@Max            验证 Number 和 String 对象是否小等于指定的值  </p>
+<p>@DecimalMax 被标注的值必须不大于约束中指定的最大值. 这个约束的参数是一个通过BigDecimal定义的最大值的字符串表示.小数存在精度</p>
+<p>@DecimalMin 被标注的值必须不小于约束中指定的最小值. 这个约束的参数是一个通过BigDecimal定义的最小值的字符串表示.小数存在精度</p>
+<p>@Digits     验证 Number 和 String 的构成是否合法  </p>
+<p>@Digits(integer=,fraction=) 验证字符串是否是符合指定格式的数字，interger指定整数精度，fraction指定小数精度。</p>
+<p>@Range(min=, max=) 检查数字是否介于min和max之间.</p>
+<p>@Range(min=10000,max=50000,message=”range.bean.wage”)<br>private BigDecimal wage;</p>
+<p>@Valid 递归的对关联对象进行校验, 如果关联对象是个集合或者数组,那么对其中的元素进行递归校验,如果是一个map,则对其中的值部分进行校验.(是否进行递归验证)</p>
+<p>@CreditCardNumber信用卡验证</p>
+<p>@Email  验证是否是邮件地址，如果为null,不进行验证，算通过验证。</p>
+<p>@ScriptAssert(lang= ,script=, alias=)</p>
+<p>@URL(protocol=,host=, port=,regexp=, flags=)</p>
+<h2 id="currentTime"><a href="#currentTime" class="headerlink" title="currentTime"></a>currentTime</h2><p>Utils.createTimeStamp();</p>
+<p>##随机串<br>Utils.createUUID();</p>
+<p>##Insert<br>    //userMapper.xml<br>    <!--设置获取自增主键--><br>    <insert id="createUser" parametertype="User" usegeneratedkeys="true" keyproperty="id"><br>        INSERT INTO users (name,mobile,password,status,created_at,updated_at)<br>        VALUES (#{name},#{mobile},#{password},#{status},#{createdAt},#{updatedAt});<br>    </insert></p>
+<pre><code>//userMapper.java
+Integer createUser(User user);
+</code></pre><p>##</p>
 
       
     </div>
@@ -245,23 +262,9 @@
       <input type="hidden" class="isFancy" />
     
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/04/09/反射机制/">
-        JAVA反射机制
-        
-      </a>
-    </h1>
-  
-
-      </header>
-      
-    
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="什么是反射机制"><a href="#什么是反射机制" class="headerlink" title="什么是反射机制"></a>什么是反射机制</h3><p>反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取的信息以及动态调用对象的方法的功能称为java语言的反射机制。<br>反正对我这种萌新是很难理解………</p>
+        <h1 id="反射机制"><a href="#反射机制" class="headerlink" title="反射机制"></a>反射机制</h1><h3 id="什么是反射机制"><a href="#什么是反射机制" class="headerlink" title="什么是反射机制"></a>什么是反射机制</h3><p>反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取的信息以及动态调用对象的方法的功能称为java语言的反射机制。<br>反正对我这种萌新是很难理解………</p>
 <p>在很多大型项目比如Spring, Mybatis都可以看见反射的身影。通过反射机制我们可以在<strong>运行期间</strong>获取对象的类型信息，利用这一特性我们可以实现工厂模式和代理模式等设计模式</p>
 <h3 id="反射机制的优缺点"><a href="#反射机制的优缺点" class="headerlink" title="反射机制的优缺点"></a>反射机制的优缺点</h3><p>在jdbc学习的时候，我们用过这样一行代码</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Class.forName(&quot;com.mysql.jdbc.Driver.class&quot;).newInstance();</div></pre></td></tr></table></figure>

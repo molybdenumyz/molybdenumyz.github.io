@@ -3,28 +3,28 @@
 <head>
   <meta charset="utf-8">
   
-  <title>JAVA反射机制 | 哲</title>
+  <title>哲</title>
 
   <!-- keywords -->
   
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="什么是反射机制反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取的信息以及动态调用对象的方法的功能称为java语言的反射机制。反正对我这种萌新是很难理解……… 在很多大型项目比如Spring, Mybatis都可以看见反射的身影。通过反射机制我们可以在运行期间获取对象的类型信息，利用这一特性我们可以实现工厂模式">
+  <meta name="description" content="反射机制什么是反射机制反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取的信息以及动态调用对象的方法的功能称为java语言的反射机制。反正对我这种萌新是很难理解……… 在很多大型项目比如Spring, Mybatis都可以看见反射的身影。通过反射机制我们可以在运行期间获取对象的类型信息，利用这一特性我们可以实现">
 <meta name="keywords">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JAVA反射机制">
+<meta property="og:title" content="哲">
 <meta property="og:url" content="http://helloyz.cn/2017/04/09/反射机制/index.html">
 <meta property="og:site_name" content="哲">
-<meta property="og:description" content="什么是反射机制反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取的信息以及动态调用对象的方法的功能称为java语言的反射机制。反正对我这种萌新是很难理解……… 在很多大型项目比如Spring, Mybatis都可以看见反射的身影。通过反射机制我们可以在运行期间获取对象的类型信息，利用这一特性我们可以实现工厂模式">
+<meta property="og:description" content="反射机制什么是反射机制反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取的信息以及动态调用对象的方法的功能称为java语言的反射机制。反正对我这种萌新是很难理解……… 在很多大型项目比如Spring, Mybatis都可以看见反射的身影。通过反射机制我们可以在运行期间获取对象的类型信息，利用这一特性我们可以实现">
 <meta property="og:image" content="http://img.blog.csdn.net/20130625103818562?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveGlhb3hpYW44MDIz/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
 <meta property="og:image" content="http://i2.muimg.com/567571/90a7446844df515c.png">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b10000_10000&sec=1491752003&di=9b4d39959b33d2dce48de7b2d5e14197&src=http://wx2.sinaimg.cn/thumb300/006jfNXqly1fayqr8r655j305i05i0sq0.jpg">
 <meta property="og:image" content="http://i4.buimg.com/567571/cac7bf2243b89077.png">
 <meta property="og:image" content="http://i2.muimg.com/567571/0b8ddde5394de982.png">
-<meta property="og:updated_time" content="2017-04-19T11:02:21.000Z">
+<meta property="og:updated_time" content="2017-04-19T11:28:25.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JAVA反射机制">
-<meta name="twitter:description" content="什么是反射机制反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取的信息以及动态调用对象的方法的功能称为java语言的反射机制。反正对我这种萌新是很难理解……… 在很多大型项目比如Spring, Mybatis都可以看见反射的身影。通过反射机制我们可以在运行期间获取对象的类型信息，利用这一特性我们可以实现工厂模式">
+<meta name="twitter:title" content="哲">
+<meta name="twitter:description" content="反射机制什么是反射机制反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取的信息以及动态调用对象的方法的功能称为java语言的反射机制。反正对我这种萌新是很难理解……… 在很多大型项目比如Spring, Mybatis都可以看见反射的身影。通过反射机制我们可以在运行期间获取对象的类型信息，利用这一特性我们可以实现">
 <meta name="twitter:image" content="http://img.blog.csdn.net/20130625103818562?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQveGlhb3hpYW44MDIz/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
   
     <link rel="alternative" href="/atom.xml" title="哲" type="application/atom+xml">
@@ -188,29 +188,9 @@
       <input type="hidden" class="isFancy" />
     
     
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      JAVA反射机制
-      
-    </h1>
-  
-
-      </header>
-      
-      <div class="article-info article-info-post">
-        
-        
-
-        
-        <div class="clearfix"></div>
-      </div>
-      
-    
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="什么是反射机制"><a href="#什么是反射机制" class="headerlink" title="什么是反射机制"></a>什么是反射机制</h3><p>反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取的信息以及动态调用对象的方法的功能称为java语言的反射机制。<br>反正对我这种萌新是很难理解………</p>
+        <h1 id="反射机制"><a href="#反射机制" class="headerlink" title="反射机制"></a>反射机制</h1><h3 id="什么是反射机制"><a href="#什么是反射机制" class="headerlink" title="什么是反射机制"></a>什么是反射机制</h3><p>反射机制是在运行状态中，对于任意一个类，都能够知道这个类的所有属性和方法；对于任意一个对象，都能够调用它的任意一个方法和属性；这种动态获取的信息以及动态调用对象的方法的功能称为java语言的反射机制。<br>反正对我这种萌新是很难理解………</p>
 <p>在很多大型项目比如Spring, Mybatis都可以看见反射的身影。通过反射机制我们可以在<strong>运行期间</strong>获取对象的类型信息，利用这一特性我们可以实现工厂模式和代理模式等设计模式</p>
 <h3 id="反射机制的优缺点"><a href="#反射机制的优缺点" class="headerlink" title="反射机制的优缺点"></a>反射机制的优缺点</h3><p>在jdbc学习的时候，我们用过这样一行代码</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Class.forName(&quot;com.mysql.jdbc.Driver.class&quot;).newInstance();</div></pre></td></tr></table></figure>
@@ -289,8 +269,8 @@ Field[] getDeclaredFields()//获得类中所有的public和非public方法
 <nav id="article-nav">
   
   
-    <a href="/2017/04/12/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Hello World</div>
+    <a href="/2017/04/21/Spring-Boot/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title"></div>
       <strong class="article-nav-caption">&gt;</strong>
     </a>
   
@@ -300,7 +280,7 @@ Field[] getDeclaredFields()//获得类中所有的public和非public方法
 </article>
 
 
-<div class="ds-share share" data-thread-key="反射机制" data-title="JAVA反射机制" data-url="http://helloyz.cn/2017/04/09/反射机制/"  data-images="http://p1.bpimg.com/4851/f8a4d2916936fe06.jpg" data-content="JAVA反射机制">
+<div class="ds-share share" data-thread-key="反射机制" data-title="" data-url="http://helloyz.cn/2017/04/09/反射机制/"  data-images="http://p1.bpimg.com/4851/f8a4d2916936fe06.jpg" data-content="">
     <div class="ds-share-inline">
       <ul  class="ds-share-icons-16">
       	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
