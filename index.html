@@ -218,24 +218,22 @@
 <li><p>添加mevan打war包插件 这里也可以指定包名</p>
 </li>
 </ol>
-<pre><code><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">  	 &lt;plugin&gt;</div><div class="line">                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</div><div class="line">                &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;</div><div class="line">                &lt;version&gt;2.1.1&lt;/version&gt;</div><div class="line">                &lt;configuration&gt;</div><div class="line">                    &lt;warName&gt;voter&lt;/warName&gt;</div><div class="line">                &lt;/configuration&gt;</div><div class="line">	  &lt;/plugin&gt;</div><div class="line">	```        </div><div class="line"></div><div class="line"></div><div class="line">6. 继承SpringbootServeletInitializer 重写configure方法 注册一个实例</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">  	 &lt;plugin&gt;</div><div class="line">                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</div><div class="line">                &lt;artifactId&gt;maven-war-plugin&lt;/artifactId&gt;</div><div class="line">                &lt;version&gt;2.1.1&lt;/version&gt;</div><div class="line">                &lt;configuration&gt;</div><div class="line">                    &lt;warName&gt;voter&lt;/warName&gt;</div><div class="line">                &lt;/configuration&gt;</div><div class="line">	  &lt;/plugin&gt;</div><div class="line">```        </div><div class="line"></div><div class="line"></div><div class="line">6. 继承SpringbootServeletInitializer 重写configure方法 注册一个实例</div></pre></td></tr></table></figure>
+<pre><code>@SpringBootApplication
+@MapperScan(&quot;com.neuqer.voter.mapper&quot;)
+@EnableAutoConfiguration    
+public class VoterApplication extends SpringBootServletInitializer {
 
-    @SpringBootApplication
-    @MapperScan(&quot;com.neuqer.voter.mapper&quot;)
-    @EnableAutoConfiguration    
-    public class VoterApplication extends SpringBootServletInitializer {
-
-        public static void main(String[] args){
-            SpringApplication.run(VoterApplication.class,args);
-        }
-        @Override
-        protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-            return builder.sources(VoterApplication.class);
-        }
+    public static void main(String[] args){
+        SpringApplication.run(VoterApplication.class,args);
     }
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">   </div><div class="line">   </div><div class="line">最后用meavn 命令打包</div></pre></td></tr></table></figure>
-</code></pre><p>clean package</p>
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+        return builder.sources(VoterApplication.class);
+    }
+}
+</code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">   </div><div class="line">最后用meavn 命令打包</div></pre></td></tr></table></figure>
+<p>clean package</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"> 	</div><div class="line"> 	</div><div class="line">它会编译一遍，跑你的所有测试类，注意测试类里不能有错误，自己抛的异常也不行</div><div class="line"> 	</div><div class="line">全部通过后会在targe里生成对应的war包</div><div class="line"> 	</div><div class="line"> </div><div class="line">## 本地Tomcat部署</div><div class="line">系统：OSX</div><div class="line"></div><div class="line">[tomcat下载地址](http://tomcat.apache.org/download-70.cgi)</div><div class="line"></div><div class="line">我选的Tomcat7感觉版本居中可以保佑我少一些运维</div><div class="line"></div><div class="line">解压到一个路径下 我选的 /usr/local/tomcat</div><div class="line"></div><div class="line">给/bin/*.sh 755</div><div class="line"></div><div class="line">在bin里终端中输入</div></pre></td></tr></table></figure>
 <pre><code>./startup.sh    
 </code></pre><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">	</div><div class="line">启动Tomcat</div><div class="line"></div><div class="line">没什么问题的话在 localhost:8080 会看到Tomcat那丑陋的猫</div><div class="line"></div><div class="line">把生成的 war 包放在webapps 里</div><div class="line"></div><div class="line">等待一会儿访问localhost:8080/[包名]</div><div class="line"></div><div class="line">正常的话可以看到你的项目的主页</div><div class="line"></div><div class="line">**万一**</div><div class="line"></div><div class="line">**如果**</div><div class="line"></div><div class="line">**运气不好**</div><div class="line"></div><div class="line">你就会看到 404 </div><div class="line"></div><div class="line">这表明你的服务没有成功的启动</div><div class="line"></div><div class="line">如果要看项目的运行情况可以在 /manager里查看</div><div class="line"> </div><div class="line">第一次进入会提示你输入账号密码</div><div class="line"></div><div class="line">你得先在 tomcat/conf/tomcat-user.xml</div><div class="line"></div><div class="line">中添加角色</div></pre></td></tr></table></figure>
